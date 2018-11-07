@@ -1,0 +1,21 @@
+{
+  "name": "dmx-animate",
+  "version": "1.0.0",
+  "description": "A node.js controller and animater for dmx lightning and devices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dmx",
+    "animation",
+    "api",
+    "node-dmx",
+    "dmx-animator"
+  ],
+  "author": "Stevertus",
+  "license": "ISC",
+  "dependencies": {
+    "dmx": "^0.1.1"
+  }
+}
