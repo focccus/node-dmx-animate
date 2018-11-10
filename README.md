@@ -138,22 +138,27 @@ The groups have the same methods as the devices, but just apply it to every devi
 ## Methods and Functionality
 Enough of setting up! Here we'll talk about controlling your set up devices and universes actually.
 **dmx.getUniverse(name)**
+
 Returns the node-dmx universe object
 
 **dmx.getUniverse(name).update(object)**
+
 Update single channels of a universe
 * `object`  - Object containing the channels as keys and values
 
 **dmx.nodeDmx**
+
 Get the original node-dmx instance and perform actions: [node-dmx](https://github.com/wiedi/node-dmx#library-api)
 
 **Device.setChannels(channels)**
+
 Updates the channels of a device.
 `channels` can be:
 * an Array of values in Order of the device channels
 * a Object with channel-value pairs
 
 **Device.set(channel, value)**
+
 Sets a channel or more to a value or more. Part of animation.
 `channel`  can be:
 * String - the channel name
@@ -162,6 +167,7 @@ Sets a channel or more to a value or more. Part of animation.
 * Object - with channel-value pairs(value argument does not matter)
 
 **Device.dim(channel, value,duration,[easing])**
+
 Animates a channel/channels from the previous value to another in a given duration. Part of animation.
 * `channel` - look at `Device.set`
 * `duration`Number - the time it takes to animate in ms
@@ -201,14 +207,17 @@ All easing methods:
 -   inOutBounce
 
 **Device.delay(duration)**
+
 Delays the next step of the animation by the given `duration` in ms. Part of animation.
 
 **Device.execute(callback)**
+
 Executes a javascript function `callback` when reached in animation. Part of animation.
 This can be used to animate multiple devices at one, log the progress or whatever.
 
 Example: see below
 **"Part of animation"**
+
 Everything labeled "Part of animation" is not ran on run call, but can be chained e.g:
 ```js
 dimmer
@@ -222,6 +231,7 @@ dimmer
 ```
 And to execute the whole chain of actions step by step, you need to run
 **Device.run(callback)**
+
 Part of animation. This starts the previous defined animation chain and calls the `callback` on Finish:
 ```js
 dimmer.run(function() {
@@ -229,16 +239,24 @@ dimmer.run(function() {
 })
 ```
 **Device.stopAnimation()**
+
 Stops the current animation.
+
 **Device.blackout()**
+
 Sets all channels to 0.
+
 **Device.getChannelState()**
+
 Returns the current values for the given channels as Object.
+
 **Device.getPrograms()**
+
 Returns all defined programs for the device.
 ## Sequences
 You can define a sequence of different actions, animations and programs with
 **dmx.addSequence(name,function,[config])**
+
 `name` String - The name of the sequence
 `function` Javascript Function - This runs on sequence call
 `config` Object - (optional) configuration e.g `{duration: 2000}`
@@ -246,7 +264,11 @@ You can define a sequence of different actions, animations and programs with
 If you return a animation object, it automatically calculates the duration for that.
 Else wise configure it yourself.
 You can also put arguments into your sequence function which can be inserted on call:
+
 **dmx.runSeq(name, ...args)**
+
 Runs the sequence with the name and inserts arguments.
+
 **dmx.stopSeq(name)**
+
 Stops a sequence again.
