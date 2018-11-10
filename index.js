@@ -14,9 +14,10 @@ module.exports = class {
         if(x.name && x.driver && x.serialPath && !this.universes[x.name]) this.universes[x.name] = (dmx.addUniverse(x.name, x.driver, x.serialPath))
       })
     }
-    this.dmx = dmx
+    this.nodeDmx = dmx
     this.animate = A
     this.devices = config.sequences || []
+    this.deviceTemplates = deviceTemplates
     this.Device = Device(this)
     this.Group = Group(this)
   }
@@ -70,4 +71,3 @@ module.exports = class {
     return Object.keys(this.universes).find(key => this.universes[key] === universe);
   }
 }
-module.exports.devices = deviceTemplates

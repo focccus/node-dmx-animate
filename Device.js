@@ -4,21 +4,32 @@ var A = DMX.Animation
 module.exports = function(parent){
   return class Device {
     constructor(config){
+      let inheritConfig = {}
+      if(config.type && parent.deviceTemplates[config.type]) inheritConfig = parent.deviceTemplates[config.type]
       this.name = config.name
-      this.isRgb = config.isRgb
+      this.reactSound = config.reactSound || inheritConfig.reactSound
+      this.isRgb = config.isRgb || inheritConfig.isRgb
       this.getDur = false
-      this.hidePrograms = config.hidePrograms
+      this.hidePrograms = (config.hidePrograms || [] ).concat(inheritConfig.hidePrograms || [])
       this.preDefined = ['blackout','stopAnimation']
       this.universe = parent.getUniverse(config.universe || 0)
-      this.channels = config.channels || ['dim']
+      this.channels = config.channels || inheritConfig.channels || ['dim']
       this.startChannel = config.startChannel || 1
       this.animation = undefined
       this.animate = []
+      this.programs = []
+      if(inheritConfig.programs){
+        this.programs = Object.keys(inheritConfig.programs)
+        for(let program of Object.keys(inheritConfig.programs)){
+          this[program] = inheritConfig.programs[program]
+        }
+      }
       if(config.programs){
-        this.programs = Object.keys(config.programs)
+        this.programs = this.programs.concat(Object.keys(config.programs))
         for(let program of Object.keys(config.programs)){
           this[program] = config.programs[program]
         }
+
       }
     }
     setChannels(channels){
@@ -132,7 +143,6 @@ module.exports = function(parent){
       }
 
       this.currentAnimation.fx_stack = this.animate
-      console.log(this.animate);
       let self = this
       this.currentAnimation.run(this.universe, () => {
         self.animate = []
